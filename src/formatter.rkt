@@ -1,17 +1,7 @@
 #lang racket
 
 (require racket/cmdline)
-(require racket/trace)
 (provide mangle)
-
-; (define (mangle-indents ...))
-
-; (define (apa-compliant))
-
-; mangle parenthesis
-; 0-2 newlines randomly wherever possible
-; swap [](){} randomly
-; fuck up indentation
 
 (define (random-paren)
   (match (random 0 3)
