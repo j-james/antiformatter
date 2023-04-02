@@ -20,7 +20,7 @@
   (make-string (+ at-least (random 0 10)) " "))
 
 (define (mangle sexp)
-  (if (not (list? sexp)) (error 'mangle "not an s-exp.")
+  (if (not (list? sexp)) (error 'mangle "not an s-exp")
     (if (empty? sexp) ""
       (let ((paren (random-paren)))
         (string-append
