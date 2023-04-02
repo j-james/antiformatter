@@ -16,4 +16,9 @@
 ;   "Mangle newlines: all / none / random (default)"
 ;   (write 'arg)]
   #:args (loc)
-  (display (string-append (mangle (read (open-input-string loc))) "\n")))
+  (display
+    (string-append ; what the fuck
+      (mangle (parameterize ([read-accept-lang #t] [read-accept-reader #t])
+        (sequence->list (in-producer read eof
+          (open-input-file loc)))))
+      "\n")))
