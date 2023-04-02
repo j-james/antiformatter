@@ -8,13 +8,16 @@
 
 (command-line
   #:program "antifmt"
-; #:once-each
-; [("-p" "--mangle-parenthesis") arg
-;   "Mangle parenthesis: all / none / random (default)"
-;   (write 'arg)]
-; [("-n" "--mangle-newlines") arg
-;   "Mangle newlines: all / none / random (default)"
-;   (write 'arg)]
+  #:once-each
+  [("-p" "--mangle-parens")
+    "Toggle mangling of parenthesis: on by default"
+    (mangle-parens? #f)]
+  [("-i" "--mangle-indents")
+    "Toggle mangling of indentation: off by default"
+    (mangle-indents? #t)]
+  [("-n" "--mangle-newlines")
+    "Toggle mangling of newlines: on by default"
+    (mangle-newlines? #f)]
   #:args (loc)
   (display
     (string-append ; what the fuck

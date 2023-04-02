@@ -1,7 +1,7 @@
 #lang racket
 
 (require racket/cmdline)
-(provide mangle)
+(provide mangle mangle-parens? mangle-indents? mangle-newlines?)
 
 (define (random-paren)
   (match (random 0 3)
@@ -13,9 +13,12 @@
   (make-string (random 0 3) #\newline))
 
 (define (random-indentation at-least)
-  (make-string (+ at-least (random 0 4)) #\space))
+  (make-string (+ at-least (random 0 3)) #\space))
 
 (define indent 0)
+(define mangle-parens? (make-parameter #t))
+(define mangle-indents? (make-parameter #f))
+(define mangle-newlines? (make-parameter #t))
 
 ; horrid hack
 (define (mangle sexp)
@@ -28,12 +31,12 @@
     (if (empty? sexp) ""
       (let ((paren (random-paren)))
         (string-append
-          (random-indentation indent)
-          (first paren)
+          (if (mangle-indents?) (random-indentation indent) "")
+          (if (mangle-parens?) (first paren) ")")
           (mangle-params sexp)
-          (random-newline)
-          (random-indentation indent)
-          (last paren))))))
+          (if (mangle-newlines?) (random-newline) "")
+          (if (mangle-indents?) (random-indentation indent) "")
+          (if (mangle-parens?) (last paren) ")"))))))
 
 (define (mangle-params sexp)
   (set! indent (max (- indent 2) 0))
