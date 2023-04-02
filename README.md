@@ -1,8 +1,8 @@
 # antiformatter
 
-usage: `racket antifmt.rkt <s-exp>`
+usage: `racket antifmt.rkt <file>`
 
-regular racket code. boring to read, easy on the eyes.
+regular racket code. boring to read, easy on the eyes. booooooo
 ```rkt
 (define (mangle sexp)
   (if (not (list? sexp)) (error 'mangle "not an s-exp")
